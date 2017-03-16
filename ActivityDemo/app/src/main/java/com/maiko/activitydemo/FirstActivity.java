@@ -7,11 +7,17 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.widget.Button;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class FirstActivity extends AppCompatActivity {
+
+    public static final String TAG = "FirstActivity";
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -37,15 +43,18 @@ public class FirstActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "FirstActivity Created");
         setContentView(R.layout.first_layout);
 
         Button button0 = (Button) findViewById(R.id.button_0);
         button0.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Toast.makeText(FirstActivity.this, "You clicked the Button", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(FirstActivity.this, FirstActivity.class);
+                startActivity(intent);
             }
         });
+
 
         Button button1 = (Button) findViewById(R.id.button_1);
         button1.setOnClickListener(new View.OnClickListener(){
@@ -80,6 +89,8 @@ public class FirstActivity extends AppCompatActivity {
         Log.d("FirstActivity", "onCreate run");
     }
 
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.d("FirstActivity", "onActivityResult run");
@@ -93,5 +104,12 @@ public class FirstActivity extends AppCompatActivity {
             default:
                 break;
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        String tempData = "Something";
+        outState.putString("data", tempData);
     }
 }
